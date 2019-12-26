@@ -1246,10 +1246,8 @@ class Speedtest(object):
                     )
 
         urls = [
-            '://www.speedtest.net/speedtest-servers-static.php',
-            'http://c.speedtest.net/speedtest-servers-static.php',
-            '://www.speedtest.net/speedtest-servers.php',
-            'http://c.speedtest.net/speedtest-servers.php',
+            'http://132.145.247.148/speedtest-servers.xml',
+            'http://132.145.247.148/speedtest-servers.xml'
         ]
 
         headers = {}
@@ -1404,7 +1402,7 @@ class Speedtest(object):
 
         return self.servers
 
-    def get_closest_servers(self, limit=5):
+    def get_closest_servers(self, limit=15):
         """Limit servers to the closest speedtest.net servers based on
         geographic distance
         """
@@ -1446,6 +1444,7 @@ class Speedtest(object):
             cum = []
             url = os.path.dirname(server['url'])
             stamp = int(timeit.time.time() * 1000)
+       	    #printer('Felix:%s' % url)
             latency_url = '%s/latency.txt?x=%s' % (url, stamp)
             for i in range(0, 3):
                 this_latency_url = '%s.%s' % (latency_url, i)
@@ -1867,7 +1866,7 @@ def shell():
     else:
         callback = print_dots(shutdown_event)
 
-    printer('Retrieving speedtest.net configuration...', quiet)
+    printer('Retrieving speedtest configuration...', quiet)
     try:
         speedtest = Speedtest(
             source_address=args.source,
@@ -1887,8 +1886,8 @@ def shell():
 
         for _, servers in sorted(speedtest.servers.items()):
             for server in servers:
-                line = ('%(id)5s) %(sponsor)s (%(name)s, %(country)s) '
-                        '[%(d)0.2f km]' % server)
+                line = ('%(id)5s: %(sponsor)s (%(name)s, %(country)s) '
+                        '' % server)
                 try:
                     printer(line)
                 except IOError:
@@ -1901,7 +1900,7 @@ def shell():
             quiet)
 
     if not args.mini:
-        printer('Retrieving speedtest.net server list...', quiet)
+        printer('Retrieving speedtest server list...', quiet)
         try:
             speedtest.get_servers(servers=args.server, exclude=args.exclude)
         except NoMatchedServers:
@@ -1928,7 +1927,9 @@ def shell():
 
     results = speedtest.results
 
-    printer('Hosted by %(sponsor)s (%(name)s) [%(d)0.2f km]: '
+    printer('Host %(id)s: %(sponsor)s (%(name)s,%(country)s): '
+            '' % results.server, quiet)
+    printer('Ping: '
             '%(latency)s ms' % results.server, quiet)
 
     if args.download:
