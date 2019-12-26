@@ -1444,7 +1444,8 @@ class Speedtest(object):
             cum = []
             url = os.path.dirname(server['url'])
             stamp = int(timeit.time.time() * 1000)
-       	    #printer('Felix:%s' % url)
+            
+       	    printer('ping server %(id)s: %(sponsor)s (%(name)s,%(country)s): ' % server)
             latency_url = '%s/latency.txt?x=%s' % (url, stamp)
             for i in range(0, 3):
                 this_latency_url = '%s.%s' % (latency_url, i)
@@ -1468,6 +1469,7 @@ class Speedtest(object):
                     h.request("GET", path, headers=headers)
                     r = h.getresponse()
                     total = (timeit.default_timer() - start)
+                   # printer('total%s'%total)
                 except HTTP_ERRORS:
                     e = get_exception()
                     printer('ERROR: %r' % e, debug=True)
@@ -1482,6 +1484,7 @@ class Speedtest(object):
                 h.close()
 
             avg = round((sum(cum) / 6) * 1000.0, 3)
+            printer('avg:%s ms'%avg)
             results[avg] = server
 
         try:
@@ -1926,8 +1929,8 @@ def shell():
         speedtest.get_best_server(speedtest.set_mini_server(args.mini))
 
     results = speedtest.results
-
-    printer('Host %(id)s: %(sponsor)s (%(name)s,%(country)s): '
+    printer('==================================================================')
+    printer('Best Server %(id)s: %(sponsor)s (%(name)s,%(country)s): '
             '' % results.server, quiet)
     printer('Ping: '
             '%(latency)s ms' % results.server, quiet)
