@@ -280,6 +280,7 @@ else:
 # Exception "constants" to support Python 2 through Python 3
 try:
     import ssl
+    ssl._create_default_https_context = ssl._create_unverified_context
     try:
         CERT_ERROR = (ssl.CertificateError,)
     except AttributeError:
