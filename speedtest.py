@@ -1446,7 +1446,7 @@ class Speedtest(object):
             url = os.path.dirname(server['url'])
             stamp = int(timeit.time.time() * 1000)
             
-       	    printer('ping server %(id)s: %(sponsor)s (%(name)s,%(country)s): ' % server)
+            printer('ping server %(id)s: %(sponsor)s (%(name)s,%(country)s): ' % server)
             latency_url = '%s/latency.txt?x=%s' % (url, stamp)
             for i in range(0, 3):
                 this_latency_url = '%s.%s' % (latency_url, i)
