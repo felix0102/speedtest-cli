@@ -1247,7 +1247,7 @@ class Speedtest(object):
                     )
 
         urls = [
-            'http://132.145.247.148/speedtest-servers.xml',
+            'http://158.101.128.108/speedtest-servers.xml',
             'http://132.145.247.148/speedtest-servers.xml'
         ]
 
