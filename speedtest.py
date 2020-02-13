@@ -23,6 +23,7 @@ import math
 import errno
 import signal
 import socket
+import time
 import timeit
 import datetime
 import platform
@@ -1929,6 +1930,8 @@ def shell():
         speedtest.get_best_server(speedtest.set_mini_server(args.mini))
 
     results = speedtest.results
+    printer('==================================================================')
+    print(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
     printer('==================================================================')
     printer('Best Server %(id)s: %(sponsor)s (%(name)s,%(country)s): '
             '' % results.server, quiet)
