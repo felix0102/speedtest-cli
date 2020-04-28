@@ -37,7 +37,7 @@ except ImportError:
     gzip = None
     GZIP_BASE = object
 
-__version__ = '2.1.3'
+__version__ = '2.1.4'
 
 
 class FakeShutdownEvent(object):
@@ -1248,8 +1248,9 @@ class Speedtest(object):
                     )
 
         urls = [
-            'http://158.101.128.108/speedtest-servers.xml',
-            'http://140.238.6.13/speedtest-servers.xml'
+            'http://140.238.6.13/speedtest-servers.xml',
+            'http://158.101.128.108/speedtest-servers.xml'
+            
         ]
 
         headers = {}
